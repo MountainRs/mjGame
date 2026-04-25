@@ -119,6 +119,28 @@ function canHuWithTile(hand, tile, meldCount) {
   return canHu([...hand, tile], meldCount);
 }
 
+function getListeningTiles(hand, meldCount) {
+  meldCount = meldCount || 0;
+  const needMelds = 4 - meldCount;
+  const expectedLen = needMelds * 3 + 1;
+  if (hand.length !== expectedLen) return [];
+
+  const allTiles = [];
+  for (const type of ['w', 't', 'b']) {
+    for (let v = 1; v <= 9; v++) allTiles.push({ type, value: v });
+  }
+  for (let v = 1; v <= 4; v++) allTiles.push({ type: 'f', value: v });
+  for (let v = 1; v <= 3; v++) allTiles.push({ type: 'd', value: v });
+
+  const waiting = [];
+  for (const t of allTiles) {
+    if (canHuWithTile(hand, t, meldCount)) {
+      waiting.push({ type: t.type, value: t.value, key: tileKey(t) });
+    }
+  }
+  return waiting;
+}
+
 function _clone(obj) {
   const c = {};
   for (const k of Object.keys(obj)) {
@@ -127,4 +149,4 @@ function _clone(obj) {
   return c;
 }
 
-module.exports = { canHu, canHuWithTile };
+module.exports = { canHu, canHuWithTile, getListeningTiles };

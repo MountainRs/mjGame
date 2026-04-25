@@ -1,5 +1,5 @@
 const { createDeck, shuffle, tileKey, tileName, isLaizi, tileSort } = require('./tiles');
-const { canHu, canHuWithTile } = require('./huChecker');
+const { canHu, canHuWithTile, getListeningTiles } = require('./huChecker');
 const AIPlayer = require('./ai');
 
 class Game {
@@ -573,6 +573,14 @@ class Game {
       tile: this._tileInfo(tile),
       wallCount: this.wall.length
     });
+
+    const listening = getListeningTiles(this.players[playerIdx].hand, this.players[playerIdx].melds.length);
+    if (listening.length > 0 && listening.length <= 10) {
+      this._sendToPlayer(playerIdx, {
+        type: 'listeningHint',
+        tiles: listening
+      });
+    }
 
     this._broadcast({
       type: 'playerDraw',

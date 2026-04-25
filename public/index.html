@@ -8,7 +8,6 @@
 </head>
 <body>
   <div id="app">
-    <!-- 大厅 -->
     <div id="lobby" class="view active">
       <div class="lobby-container">
         <div class="lobby-header">
@@ -18,10 +17,10 @@
         <div class="lobby-form">
           <div class="form-group">
             <label>昵称</label>
-            <input type="text" id="playerName" placeholder="输入你的昵称" maxlength="8" value="">
+            <input type="text" id="playerName" placeholder="输入你的昵称" maxlength="8">
           </div>
           <div class="btn-row">
-            <button id="btnCreate" class="btn btn-primary" onclick="createRoom()">创建房间</button>
+            <button class="btn btn-primary" onclick="createRoom()">创建房间</button>
           </div>
           <div class="divider"><span>或</span></div>
           <div class="form-group">
@@ -29,13 +28,12 @@
             <input type="text" id="roomId" placeholder="输入房间号" maxlength="4" style="text-transform:uppercase">
           </div>
           <div class="btn-row">
-            <button id="btnJoin" class="btn btn-secondary" onclick="joinRoom()">加入房间</button>
+            <button class="btn btn-secondary" onclick="joinRoom()">加入房间</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 房间等待 -->
     <div id="roomView" class="view">
       <div class="room-container">
         <div class="room-header">
@@ -51,38 +49,31 @@
       </div>
     </div>
 
-    <!-- 游戏界面 -->
     <div id="gameView" class="view">
       <div class="game-table">
-        <!-- 顶部信息栏 -->
         <div class="game-info">
           <span id="wallCount">余: 0</span>
           <span id="turnInfo">等待中</span>
           <span id="roomInfo"></span>
         </div>
 
-        <!-- 对面玩家 (上) -->
         <div id="playerTop" class="player-area top">
           <div class="player-label"><span class="player-name"></span></div>
           <div class="player-melds melds-top"></div>
           <div class="player-tiles tiles-row tiles-hidden"></div>
         </div>
 
-        <!-- 中间区域 -->
         <div class="middle-row">
-          <!-- 左边玩家 -->
           <div id="playerLeft" class="player-area left">
             <div class="player-label"><span class="player-name"></span></div>
             <div class="player-melds melds-left"></div>
             <div class="player-tiles tiles-col tiles-hidden"></div>
           </div>
 
-          <!-- 牌河 (中间) -->
           <div id="discardArea" class="discard-area">
             <div class="discard-inner"></div>
           </div>
 
-          <!-- 右边玩家 -->
           <div id="playerRight" class="player-area right">
             <div class="player-label"><span class="player-name"></span></div>
             <div class="player-melds melds-right"></div>
@@ -90,13 +81,16 @@
           </div>
         </div>
 
-        <!-- 我的牌 (下) -->
         <div id="playerBottom" class="player-area bottom">
           <div class="player-melds melds-bottom"></div>
           <div id="myHand" class="my-hand"></div>
         </div>
 
-        <!-- 操作按钮 -->
+        <div id="listeningHint" class="listening-hint hidden">
+          <span class="hint-label">听牌</span>
+          <div id="listeningTiles" class="listening-tiles"></div>
+        </div>
+
         <div id="actionBar" class="action-bar hidden">
           <button id="btnHu" class="btn btn-action btn-hu" onclick="doAction('hu')">胡</button>
           <button id="btnGang" class="btn btn-action btn-gang" onclick="doAction('gang')">杠</button>
@@ -104,17 +98,17 @@
           <button id="btnPass" class="btn btn-action btn-pass" onclick="doAction('pass')">过</button>
         </div>
 
-        <!-- 状态提示 -->
         <div id="gameStatus" class="game-status hidden"></div>
       </div>
     </div>
 
-    <!-- 游戏结束弹窗 -->
     <div id="gameOverModal" class="modal hidden">
       <div class="modal-content">
         <h2 id="gameOverTitle">游戏结束</h2>
         <div id="gameOverInfo"></div>
-        <button class="btn btn-primary" onclick="restartGame()">再来一局</button>
+        <div class="modal-buttons">
+          <button class="btn btn-primary btn-restart" onclick="restartGame()">再来一局</button>
+        </div>
       </div>
     </div>
   </div>
